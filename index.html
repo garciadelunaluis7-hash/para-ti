@@ -1,39 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Tus 20 Rosas</title>
+    <title>20 Rosas para Ti</title>
     <style>
-        body { background-color: #000; color: white; text-align: center; font-family: Arial, sans-serif; overflow: hidden; }
-        canvas { display: block; margin: 0 auto; }
-        .mensaje { position: absolute; top: 80%; width: 100%; font-size: 24px; color: #ff4d4d; text-shadow: 0 0 10px #ff0000; }
+        body { background: #000; margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        canvas { width: 100vmin; height: 100vmin; }
+        .texto { color: #ff4d4d; font-family: 'Arial', sans-serif; font-size: 20px; position: absolute; bottom: 10%; text-shadow: 0 0 10px #ff0000; text-align: center; }
     </style>
 </head>
 <body>
-    <div class="mensaje">🌹 20 Rosas para una persona especial 🌹<br>Feliz 20 de Abril</div>
+    <div class="texto">🌹 Feliz 20 de Abril 🌹<br>Estas 20 rosas son para ti</div>
     <canvas id="c"></canvas>
     <script>
-        var canvas = document.getElementById("c");
-        var ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        var f = 0;
-        function draw() {
-            var r = 255, g = 0, b = 0, a = 0.05;
-            ctx.fillStyle = "rgba(0,0,0," + a + ")";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (var i = 0; i < 20; i++) { // Aquí están tus 20 rosas
-                var x = Math.sin(f + i) * 150 + canvas.width / 2;
-                var y = Math.cos(f + i * 0.5) * 150 + canvas.height / 2;
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, Math.PI * 2);
-                ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                ctx.fill();
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width = 600;
+        var height = canvas.height = 600;
+
+        function surface(a, b, c) {
+            if (c > 60) {
+                return [Math.sin(a * 7) * (13 + 5 / (0.2 + Math.pow(b * 4, 4))) - Math.sin(b) * 50, b * width + 50, 625 + Math.cos(a * 7) * (13 + 5 / (0.2 + Math.pow(b * 4, 4))) + b * 400, a * 1 - b / 2, b];
             }
-            f += 0.02;
-            requestAnimationFrame(draw);
+            var x = a * 2 - 1, y = b * 2 - 1;
+            if (x * x + y * y < 1) {
+                if (c > 32) {
+                    var d = (c & 1) ? 6 : 4;
+                    var o = 0.5 / (a + 0.01) + Math.cos(b * 125) * 3 - a * 300;
+                    var w = b * d;
+                    return [o * Math.cos(w) + Math.sin(b * 0.7) * 400 + 400, o * Math.sin(w) + b * 2000 - 4000, 1500 + Math.cos(b * 0.7) * 400, 1.2, a];
+                }
+                var o = Math.pow(1 - (x * x + y * y), 0.2) * (0.9 + Math.pow(x, 4) * 0.1) * 30 - 15;
+                return [x * 30, y * 30, o, 1, 0.5];
+            }
+            return [0, 0, 0, 0, 0];
         }
-        draw();
+
+        setInterval(function() {
+            for (var i = 0; i < 10000; i++) {
+                var p = surface(Math.random(), Math.random(), Math.random() * 80);
+                if (p[3] > 0) {
+                    var x = parseInt((p[0] * 200) / p[2] + width / 2);
+                    var y = parseInt((p[1] * 200) / p[2] + height / 2);
+                    var color = p[3] * 200;
+                    ctx.fillStyle = 'rgb(' + color + ',' + (p[4] * color / 2) + ',' + (p[4] * color / 2) + ')';
+                    ctx.fillRect(x, y, 1, 1);
+                }
+            }
+        }, 10);
     </script>
 </body>
 </html>
