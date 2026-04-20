@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tus 20 Rosas</title>
+    <style>
+        body { background-color: #000; color: white; text-align: center; font-family: Arial, sans-serif; overflow: hidden; }
+        canvas { display: block; margin: 0 auto; }
+        .mensaje { position: absolute; top: 80%; width: 100%; font-size: 24px; color: #ff4d4d; text-shadow: 0 0 10px #ff0000; }
+    </style>
+</head>
+<body>
+    <div class="mensaje">🌹 20 Rosas para una persona especial 🌹<br>Feliz 20 de Abril</div>
+    <canvas id="c"></canvas>
+    <script>
+        var canvas = document.getElementById("c");
+        var ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var f = 0;
+        function draw() {
+            var r = 255, g = 0, b = 0, a = 0.05;
+            ctx.fillStyle = "rgba(0,0,0," + a + ")";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < 20; i++) { // Aquí están tus 20 rosas
+                var x = Math.sin(f + i) * 150 + canvas.width / 2;
+                var y = Math.cos(f + i * 0.5) * 150 + canvas.height / 2;
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                ctx.fill();
+            }
+            f += 0.02;
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
