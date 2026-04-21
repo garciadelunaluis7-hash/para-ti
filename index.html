@@ -1,28 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mis 20 Rosas 🌹</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Rosas para Mich ✨</title>
     <style>
-        body { background: #000; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .contenedor { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-width: 300px; }
-        .rosa { font-size: 40px; animation: aparecer 1.5s ease-out forwards; opacity: 0; }
-        @keyframes aparecer { from { transform: scale(0) rotate(-45deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
-        h1 { color: #ff4d4d; text-shadow: 0 0 10px #f00; font-size: 22px; margin-bottom: 20px; }
+        body { background: #000; color: white; text-align: center; font-family: 'Arial', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        h1 { color: #ff4d4d; text-shadow: 0 0 20px #f00, 0 0 10px #fff; font-size: 26px; margin-bottom: 50px; z-index: 10; animation: brillo 2s infinite; }
+        
+        .ramo-wrapper { position: relative; width: 250px; height: 300px; }
+        .papel { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-bottom: 200px solid #d2b48c; z-index: 1; border-radius: 0 0 50px 50px; }
+        .flores-container { position: absolute; top: -50px; left: 0; width: 100%; height: 100%; z-index: 2; }
+        .rosa { position: absolute; font-size: 45px; opacity: 0; transform: scale(0); animation: florecer 0.8s ease-out forwards; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5)); }
+
+        /* Estilo de los destellos */
+        .destello { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: destellar 1.5s infinite; z-index: 3; }
+
+        @keyframes florecer { to { opacity: 1; transform: scale(1); } }
+        @keyframes destellar { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px #fff; } 100% { transform: scale(0); opacity: 0; } }
+        @keyframes brillo { 0%, 100% { text-shadow: 0 0 20px #f00; } 50% { text-shadow: 0 0 30px #ff8080, 0 0 10px #fff; } }
     </style>
 </head>
 <body>
-    <h1>🌹 20 Rosas por el 20 de Abril 🌹</h1>
-    <div class="contenedor" id="ramo"></div>
+    <h1>✨ 20 Rosas para Mich ✨</h1>
+    
+    <div class="ramo-wrapper">
+        <div class="papel"></div>
+        <div class="flores-container" id="ramo"></div>
+    </div>
+
     <script>
         const ramo = document.getElementById('ramo');
-        for (let i = 1; i <= 20; i++) {
+        const posiciones = [
+            {t:20, l:100}, {t:30, l:60}, {t:30, l:140}, {t:60, l:30}, {t:60, l:170},
+            {t:70, l:100}, {t:80, l:60}, {t:80, l:140}, {t:100, l:20}, {t:100, l:180},
+            {t:110, l:70}, {t:110, l:130}, {t:130, l:100}, {t:140, l:40}, {t:140, l:160},
+            {t:10, l:80}, {t:10, l:120}, {t:50, l:80}, {t:50, l:120}, {t:90, l:100}
+        ];
+
+        // Crear rosas
+        posiciones.forEach((pos, i) => {
             setTimeout(() => {
                 const rosa = document.createElement('div');
                 rosa.className = 'rosa';
                 rosa.innerHTML = '🌹';
+                rosa.style.top = pos.t + 'px';
+                rosa.style.left = pos.l + 'px';
                 ramo.appendChild(rosa);
-            }, i * 200); // Esto hace que aparezcan una por una
+                crearDestello(pos.t, pos.l);
+            }, i * 200);
+        });
+
+        // Función para crear destellos aleatorios
+        function crearDestello(t, l) {
+            for(let i=0; i<2; i++) {
+                const d = document.createElement('div');
+                d.className = 'destello';
+                const size = Math.random() * 5 + 2;
+                d.style.width = size + 'px';
+                d.style.height = size + 'px';
+                d.style.top = (t + Math.random() * 40) + 'px';
+                d.style.left = (l + Math.random() * 40) + 'px';
+                d.style.animationDelay = Math.random() * 2 + 's';
+                ramo.appendChild(d);
+            }
         }
     </script>
 </body>
