@@ -13,105 +13,152 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  color: white;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
 }
 
-/* ⭐ CAPAS DE ESTRELLAS */
-.stars, .stars2, .stars3 {
+/* ⭐ estrellas */
+body::before {
+  content: "";
   position: absolute;
   width: 200%;
   height: 200%;
-  background-repeat: repeat;
-  animation: moveStars linear infinite;
-}
-
-.stars {
-  background-image: radial-gradient(white 1px, transparent 1px);
+  background: radial-gradient(white 1px, transparent 1px);
   background-size: 3px 3px;
-  animation-duration: 60s;
-  opacity: 0.9;
-}
-
-.stars2 {
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 2px 2px;
-  animation-duration: 100s;
+  animation: estrellas 60s linear infinite;
   opacity: 0.5;
 }
 
-.stars3 {
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 1px 1px;
-  animation-duration: 150s;
-  opacity: 0.3;
-}
-
-/* movimiento */
-@keyframes moveStars {
+@keyframes estrellas {
   from { transform: translateY(0); }
   to { transform: translateY(-1000px); }
 }
 
-/* ✨ EFECTO BRILLO */
-@keyframes glow {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
-}
-
-.stars, .stars2, .stars3 {
-  animation-name: moveStars, glow;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear, ease-in-out;
-}
-
-/* contenido */
+/* contenedor */
 .contenido {
-  text-align: center;
-  z-index: 1;
+  position: relative;
+  width: 360px;
+  height: 500px;
 }
 
-h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
+/* 🌿 ENVOLTURA (papel) */
+.envoltura {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 180px;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  clip-path: polygon(0% 0%, 100% 0%, 70% 100%, 30% 100%);
+  z-index: 1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 /* rosas */
-.rosas {
-  font-size: 32px;
-  line-height: 1.6;
+.rosa {
+  position: absolute;
+  width: 50px;
+  opacity: 0;
+  transform: translateY(250px) scale(0.5);
+  animation: subir 0.8s forwards;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6));
 }
+
+/* animación subir */
+@keyframes subir {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 🌹 POSICIONES RAMO */
+.r1 { top: 20px; left: 130px; animation-delay: 0.2s; }
+.r2 { top: 30px; left: 90px; animation-delay: 0.4s; }
+.r3 { top: 30px; left: 170px; animation-delay: 0.6s; }
+.r4 { top: 60px; left: 50px; animation-delay: 0.8s; }
+.r5 { top: 60px; left: 210px; animation-delay: 1s; }
+
+.r6 { top: 100px; left: 30px; animation-delay: 1.2s; }
+.r7 { top: 100px; left: 90px; animation-delay: 1.4s; }
+.r8 { top: 100px; left: 150px; animation-delay: 1.6s; }
+.r9 { top: 100px; left: 210px; animation-delay: 1.8s; }
+.r10 { top: 100px; left: 270px; animation-delay: 2s; }
+
+.r11 { top: 150px; left: 60px; animation-delay: 2.2s; }
+.r12 { top: 150px; left: 120px; animation-delay: 2.4s; }
+.r13 { top: 150px; left: 180px; animation-delay: 2.6s; }
+.r14 { top: 150px; left: 240px; animation-delay: 2.8s; }
+
+.r15 { top: 200px; left: 100px; animation-delay: 3s; }
+.r16 { top: 200px; left: 160px; animation-delay: 3.2s; }
+.r17 { top: 200px; left: 220px; animation-delay: 3.4s; }
+
+.r18 { top: 250px; left: 130px; animation-delay: 3.6s; }
+.r19 { top: 250px; left: 170px; animation-delay: 3.8s; }
+
+.r20 { top: 300px; left: 150px; animation-delay: 4s; }
 
 /* texto */
 .texto {
-  margin-top: 20px;
+  position: absolute;
+  bottom: -70px;
+  width: 100%;
+  text-align: center;
   font-size: 28px;
   color: #ff4d6d;
   font-weight: bold;
+  opacity: 0;
+  animation: textoAparece 1s forwards;
+  animation-delay: 4.8s;
   text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d;
 }
-</style>
 
+@keyframes textoAparece {
+  to { opacity: 1; }
+}
+</style>
 </head>
 
 <body>
 
-<div class="stars"></div>
-<div class="stars2"></div>
-<div class="stars3"></div>
-
 <div class="contenido">
-  <h2>Para Mich 💗</h2>
 
-  <div class="rosas">
-    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>
-    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
-  </div>
+  <!-- 🌿 ENVOLTURA -->
+  <div class="envoltura"></div>
 
+  <!-- 🌹 ROSAS -->
+  <img class="rosa r1" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r2" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r3" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r4" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r5" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+
+  <img class="rosa r6" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r7" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r8" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r9" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r10" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+
+  <img class="rosa r11" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r12" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r13" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r14" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+
+  <img class="rosa r15" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r16" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r17" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+
+  <img class="rosa r18" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+  <img class="rosa r19" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+
+  <img class="rosa r20" src="https://cdn-icons-png.flaticon.com/512/3239/3239955.png">
+
+  <!-- 💗 TEXTO -->
   <div class="texto">
     Eres tan bonita 🫶❤️
   </div>
+
 </div>
 
 </body>
