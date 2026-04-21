@@ -1,17 +1,61 @@
-<h2 align="center">Para Mich 💗</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Mich 💗</title>
 
-<p align="center">
-  <img src="https://rosify.org/rose/image_6.png" width="220">
-</p>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-family: Arial;
+}
 
-<p align="center">
-  ✨🌹✨🌹✨🌹✨🌹✨<br>
-  🌹✨🌹✨🌹✨🌹✨🌹<br>
-  ✨🌹✨🌹✨🌹✨🌹✨
-</p>
+/* estrellas */
+body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("https://i.imgur.com/7b1Q5YF.gif");
+  background-size: cover;
+  z-index: -1;
+}
 
-<p align="center">
-  <b style="color:red; font-size:18px;">
-    Eres tan bonita 🫶❤️
-  </b>
-</p>
+/* rosas */
+.rosas {
+  font-size: 30px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.texto {
+  margin-top: 20px;
+  font-size: 24px;
+  color: #ff4d6d;
+}
+</style>
+
+</head>
+<body>
+
+<h2>Para Mich 💗</h2>
+
+<div class="rosas">
+🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>
+🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
+</div>
+
+<div class="texto">
+Eres tan bonita 🫶❤️
+</div>
+
+</body>
+</html>
