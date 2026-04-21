@@ -15,46 +15,103 @@ body {
   align-items: center;
   flex-direction: column;
   color: white;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
-/* estrellas */
-body::before {
-  content: "";
+/* ⭐ CAPAS DE ESTRELLAS */
+.stars, .stars2, .stars3 {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("https://i.imgur.com/7b1Q5YF.gif");
-  background-size: cover;
-  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  animation: moveStars linear infinite;
+}
+
+.stars {
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 3px 3px;
+  animation-duration: 60s;
+  opacity: 0.9;
+}
+
+.stars2 {
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 2px 2px;
+  animation-duration: 100s;
+  opacity: 0.5;
+}
+
+.stars3 {
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 1px 1px;
+  animation-duration: 150s;
+  opacity: 0.3;
+}
+
+/* movimiento */
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
+/* ✨ EFECTO BRILLO */
+@keyframes glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.stars, .stars2, .stars3 {
+  animation-name: moveStars, glow;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear, ease-in-out;
+}
+
+/* contenido */
+.contenido {
+  text-align: center;
+  z-index: 1;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 /* rosas */
 .rosas {
-  font-size: 30px;
-  line-height: 1.5;
-  text-align: center;
+  font-size: 32px;
+  line-height: 1.6;
 }
 
+/* texto */
 .texto {
   margin-top: 20px;
-  font-size: 24px;
+  font-size: 28px;
   color: #ff4d6d;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d;
 }
 </style>
 
 </head>
+
 <body>
 
-<h2>Para Mich 💗</h2>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
 
-<div class="rosas">
-🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>
-🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
-</div>
+<div class="contenido">
+  <h2>Para Mich 💗</h2>
 
-<div class="texto">
-Eres tan bonita 🫶❤️
+  <div class="rosas">
+    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>
+    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
+  </div>
+
+  <div class="texto">
+    Eres tan bonita 🫶❤️
+  </div>
 </div>
 
 </body>
