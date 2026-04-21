@@ -3,37 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20 Rosas para Mich 🌹</title>
+    <title>20 Rosas para Mich</title>
     <style>
-        /* Fondo crema suave como tu imagen */
-        body { background: #fdf0d5; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden; }
-        
-        /* Título con efecto de latido */
-        h1 { color: #b22222; text-shadow: 0 0 10px rgba(255,255,255,0.8); font-size: 26px; margin-bottom: 30px; text-align: center; animation: latido 2s infinite; }
+        body { background: #f9e4bc; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden; }
+        h1 { color: #b22222; text-shadow: 0 0 10px rgba(255,255,255,0.8); font-size: 26px; margin-bottom: 30px; text-align: center; }
 
-        @keyframes latido {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); text-shadow: 0 0 20px #ff4d4d; }
-        }
+        /* Estructura del ramo */
+        .bouquet-frame { position: relative; width: 280px; height: 350px; display: flex; justify-content: center; }
 
-        .bouquet-frame { position: relative; width: 300px; height: 400px; display: flex; justify-content: center; }
+        /* Papel estilo 3D de la imagen */
+        .papel { position: absolute; bottom: 0; width: 100%; height: 230px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); border-radius: 0 0 60px 60px; z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .lazo { position: absolute; bottom: 45px; width: 65px; height: 12px; background: #ffd700; border-radius: 10px; z-index: 15; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
 
-        /* Papel blanco estilo 3D */
-        .papel { position: absolute; bottom: 0; width: 100%; height: 260px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); border-radius: 0 0 80px 80px; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.1), inset 0 -10px 20px rgba(0,0,0,0.05); }
-        
-        /* Lazo amarillo */
-        .lazo { position: absolute; bottom: 60px; width: 70px; height: 12px; background: #ffd700; border-radius: 10px; z-index: 15; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        /* Área de las flores con efecto de apilado */
+        .area-flores { position: absolute; top: -40px; width: 220px; height: 200px; z-index: 5; display: flex; flex-wrap: wrap-reverse; justify-content: center; align-content: flex-end; }
 
-        /* Contenedor donde florecen las 20 rosas */
-        .area-flores { position: absolute; top: -20px; width: 220px; height: 200px; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; }
+        /* La animación de aparición estilo TikTok */
+        .rosa { font-size: 55px; margin: -18px; opacity: 0; transform: scale(0) translateY(50px); animation: aparecerTikTok 0.8s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards; filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.3)); }
 
-        .rosa { font-size: 55px; margin: -18px; opacity: 0; transform: scale(0) rotate(-15deg); animation: nacer 0.8s cubic-bezier(0.17, 0.67, 0.6, 1.2) forwards; filter: drop-shadow(3px 5px 10px rgba(0,0,0,0.3)); }
+        @keyframes aparecerTikTok { to { opacity: 1; transform: scale(1) translateY(0); } }
 
-        @keyframes nacer { 
-            to { opacity: 1; transform: scale(1) rotate(var(--r)); } 
-        }
-
-        /* Destellos brillantes */
+        /* Destellos mágicos */
         .sparkle { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: flash 1.5s infinite; z-index: 20; pointer-events: none; }
         @keyframes flash { 0%, 100% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #fff; } }
     </style>
@@ -49,30 +39,26 @@
 
     <script>
         const bouquet = document.getElementById('bouquet');
+        // El orden de aparición imita el llenado de un ramo real
         for (let i = 0; i < 20; i++) {
             setTimeout(() => {
                 const rosa = document.createElement('div');
                 rosa.className = 'rosa';
-                // Le damos una rotación aleatoria a cada rosa para que se vea natural
-                const randomRot = Math.floor(Math.random() * 40) - 20;
-                rosa.style.setProperty('--r', randomRot + 'deg');
                 rosa.innerHTML = '🌹';
                 bouquet.appendChild(rosa);
-                
-                // Creamos un destello por cada rosa que nace
-                createSparkle();
-            }, i * 150);
+                if (i % 2 === 0) createSparkle();
+            }, i * 200); // 200ms de retraso entre cada rosa para que se vea el llenado
         }
 
         function createSparkle() {
             const s = document.createElement('div');
             s.className = 'sparkle';
-            const size = Math.random() * 7 + 3;
+            const size = Math.random() * 8 + 4;
             s.style.width = size + 'px';
             s.style.height = size + 'px';
-            // Los destellos aparecen cerca del ramo
-            s.style.top = (Math.random() * 300) + 'px';
-            s.style.left = (Math.random() * 300) + 'px';
+            s.style.top = Math.random() * 300 + 'px';
+            s.style.left = Math.random() * 250 + 'px';
+            s.style.animationDelay = Math.random() * 2 + 's';
             document.body.appendChild(s);
         }
     </script>
