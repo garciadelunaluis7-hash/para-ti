@@ -5,74 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>20 Rosas para Mich</title>
     <style>
-        body { background: #fdf0d5; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden; }
-        h1 { color: #d62828; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); font-size: 26px; position: absolute; top: 8%; z-index: 20; }
+        /* Fondo crema idéntico a tu imagen */
+        body { background: #f9e4bc; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden; }
         
-        /* Contenedor del Ramo */
-        .bouquet-container { position: relative; width: 300px; height: 450px; display: flex; justify-content: center; align-items: center; }
+        h1 { color: #b22222; text-shadow: 0 0 10px rgba(255,255,255,0.8); font-size: 28px; position: absolute; top: 10%; z-index: 100; text-align: center; }
 
-        /* Papel envolvente 3D */
-        .wrapper { position: absolute; bottom: 40px; width: 240px; height: 300px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%); border-radius: 0 0 120px 120px; z-index: 10; box-shadow: inset 0 -15px 30px rgba(0,0,0,0.1); }
-        .ribbon { position: absolute; bottom: 100px; width: 70px; height: 12px; background: #ffbe0b; border-radius: 20px; z-index: 15; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .ramo-container { position: relative; width: 320px; height: 450px; display: flex; justify-content: center; align-items: flex-end; }
 
-        /* Contenedor de las 20 rosas */
-        .roses-box { position: absolute; top: 40px; width: 220px; height: 200px; z-index: 5; display: block; }
+        /* Papel blanco estilo 3D de la imagen */
+        .papel { position: absolute; bottom: 50px; width: 240px; height: 280px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); border-radius: 0 0 80px 80px; z-index: 10; box-shadow: inset 0 -20px 30px rgba(0,0,0,0.05), 5px 10px 20px rgba(0,0,0,0.1); }
         
-        .rose { position: absolute; font-size: 55px; opacity: 0; transform: scale(0); animation: bloom 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.2)); }
+        /* El lazo amarillo de la imagen */
+        .lazo { position: absolute; bottom: 100px; width: 65px; height: 12px; background: #ffd700; border-radius: 10px; z-index: 15; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .lazo::after { content: '🎗️'; position: absolute; right: -15px; top: -10px; font-size: 20px; transform: rotate(20deg); }
 
-        @keyframes bloom { to { opacity: 1; transform: scale(1); } }
+        /* Contenedor de rosas para que se amontonen como un ramo */
+        .flores { position: absolute; top: 50px; width: 260px; height: 220px; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; }
 
-        /* Destellos mágicos ✨ */
-        .sparkle { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: flash 1.5s infinite; z-index: 25; pointer-events: none; }
-        @keyframes flash { 0%, 100% { transform: scale(0); opacity: 0; } 50% { transform: scale(1); opacity: 1; box-shadow: 0 0 15px #fff; } }
+        .rosa { font-size: 55px; margin: -12px; opacity: 0; transform: scale(0) rotate(-10deg); animation: brotar 0.7s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards; filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.3)); }
+
+        @keyframes brotar { to { opacity: 1; transform: scale(1) rotate(0deg); } }
+
+        /* Destellos brillantes ✨ */
+        .brillo { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: destello 1.5s infinite; z-index: 20; }
+        @keyframes destello { 0%, 100% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #fff; } }
     </style>
 </head>
 <body>
     <h1>🌹 20 Rosas para Mich 🌹</h1>
-    
-    <div class="bouquet-container">
-        <!-- Las Rosas se inyectan aquí -->
-        <div class="roses-box" id="bouquet"></div>
-        <!-- Envoltorio -->
-        <div class="wrapper"></div>
-        <div class="ribbon"></div>
+
+    <div class="ramo-container">
+        <div class="flores" id="bouquet"></div>
+        <div class="papel"></div>
+        <div class="lazo"></div>
     </div>
 
     <script>
         const bouquet = document.getElementById('bouquet');
-        
-        // Coordenadas manuales para que las 20 rosas formen un ramo perfecto y frondoso
-        const coords = [
-            {t:10, l:80}, {t:20, l:40}, {t:20, l:120}, {t:40, l:10}, {t:40, l:70}, {t:40, l:150},
-            {t:65, l:40}, {t:65, l:110}, {t:90, l:0}, {t:90, l:75}, {t:90, l:160}, {t:115, l:35},
-            {t:115, l:120}, {t:140, l:75}, {t:5, l:45}, {t:5, l:115}, {t:70, l:145}, {t:130, l:15},
-            {t:135, l:140}, {t:150, l:80}
-        ];
-
-        coords.forEach((pos, i) => {
+        // Generamos las 20 rosas con un pequeño retraso entre cada una
+        for (let i = 0; i < 20; i++) {
             setTimeout(() => {
-                const rose = document.createElement('div');
-                rose.className = 'rose';
-                rose.innerHTML = '🌹';
-                rose.style.top = pos.t + 'px';
-                rose.style.left = pos.l + 'px';
-                bouquet.appendChild(rose);
-                
-                // Crear destellos cada 2 rosas
-                if(i % 2 === 0) createSparkle();
-            }, i * 180);
-        });
+                const rosa = document.createElement('div');
+                rosa.className = 'rosa';
+                rosa.innerHTML = '🌹'; // Rosa roja
+                bouquet.appendChild(rosa);
+                if (i % 2 === 0) crearBrillo();
+            }, i * 150);
+        }
 
-        function createSparkle() {
-            const s = document.createElement('div');
-            s.className = 'sparkle';
+        function crearBrillo() {
+            const b = document.createElement('div');
+            b.className = 'brillo';
             const size = Math.random() * 8 + 4;
-            s.style.width = size + 'px';
-            s.style.height = size + 'px';
-            s.style.top = Math.random() * 300 + 'px';
-            s.style.left = Math.random() * 250 + 'px';
-            s.style.animationDelay = Math.random() * 2 + 's';
-            document.querySelector('.bouquet-container').appendChild(s);
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.top = Math.random() * 300 + 'px';
+            b.style.left = Math.random() * 300 + 'px';
+            b.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(b);
         }
     </script>
 </body>
