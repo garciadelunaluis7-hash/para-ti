@@ -1,64 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20 Rosas para Mich</title>
-    <style>
-        body { background: #f9e4bc; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden; }
-        h1 { color: #b22222; text-shadow: 0 0 10px rgba(255,255,255,0.8); font-size: 24px; margin-bottom: 20px; text-align: center; }
+<h2 align="center">Para Mich 💗</h2>
 
-        /* Contenedor principal para que nada se salga */
-        .bouquet-frame { position: relative; width: 280px; height: 350px; display: flex; justify-content: center; }
+<p align="center">
+  <img src="https://rosify.org/rose/image_6.png" width="220">
+</p>
 
-        /* Papel blanco estilo cono */
-        .papel { position: absolute; bottom: 0; width: 100%; height: 220px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); border-radius: 0 0 60px 60px; z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        
-        .lazo { position: absolute; bottom: 40px; width: 60px; height: 10px; background: #ffd700; border-radius: 10px; z-index: 15; }
+<p align="center">
+  ✨🌹✨🌹✨🌹✨🌹✨<br>
+  🌹✨🌹✨🌹✨🌹✨🌹<br>
+  ✨🌹✨🌹✨🌹✨🌹✨
+</p>
 
-        /* Aquí es donde se quedan encerradas las rosas */
-        .area-flores { position: absolute; top: -30px; width: 200px; height: 180px; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; }
-
-        .rosa { font-size: 45px; margin: -15px; opacity: 0; transform: scale(0); animation: nacer 0.6s ease-out forwards; filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.2)); }
-
-        @keyframes nacer { to { opacity: 1; transform: scale(1); } }
-
-        /* Destellos */
-        .sparkle { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: flash 1.5s infinite; z-index: 20; }
-        @keyframes flash { 0%, 100% { transform: scale(0); } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #fff; } }
-    </style>
-</head>
-<body>
-    <h1>🌹 20 Rosas para Mich 🌹</h1>
-
-    <div class="bouquet-frame">
-        <div class="area-flores" id="bouquet"></div>
-        <div class="papel"></div>
-        <div class="lazo"></div>
-    </div>
-
-    <script>
-        const bouquet = document.getElementById('bouquet');
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const rosa = document.createElement('div');
-                rosa.className = 'rosa';
-                rosa.innerHTML = '🌹';
-                bouquet.appendChild(rosa);
-                if (i % 2 === 0) createSparkle();
-            }, i * 100);
-        }
-
-        function createSparkle() {
-            const s = document.createElement('div');
-            s.className = 'sparkle';
-            const size = Math.random() * 6 + 2;
-            s.style.width = size + 'px';
-            s.style.height = size + 'px';
-            s.style.top = Math.random() * 200 + 'px';
-            s.style.left = Math.random() * 250 + 'px';
-            document.body.appendChild(s);
-        }
-    </script>
-</body>
-</html>
+<p align="center">
+  <b style="color:red; font-size:18px;">
+    Eres tan bonita 🫶❤️
+  </b>
+</p>
