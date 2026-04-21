@@ -5,64 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>20 Rosas para Mich</title>
     <style>
-        /* Fondo crema idéntico a tu imagen */
         body { background: #f9e4bc; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden; }
+        h1 { color: #b22222; text-shadow: 0 0 10px rgba(255,255,255,0.8); font-size: 24px; margin-bottom: 20px; text-align: center; }
+
+        /* Contenedor principal para que nada se salga */
+        .bouquet-frame { position: relative; width: 280px; height: 350px; display: flex; justify-content: center; }
+
+        /* Papel blanco estilo cono */
+        .papel { position: absolute; bottom: 0; width: 100%; height: 220px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); border-radius: 0 0 60px 60px; z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         
-        h1 { color: #b22222; text-shadow: 0 0 10px rgba(255,255,255,0.8); font-size: 28px; position: absolute; top: 10%; z-index: 100; text-align: center; }
+        .lazo { position: absolute; bottom: 40px; width: 60px; height: 10px; background: #ffd700; border-radius: 10px; z-index: 15; }
 
-        .ramo-container { position: relative; width: 320px; height: 450px; display: flex; justify-content: center; align-items: flex-end; }
+        /* Aquí es donde se quedan encerradas las rosas */
+        .area-flores { position: absolute; top: -30px; width: 200px; height: 180px; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; }
 
-        /* Papel blanco estilo 3D de la imagen */
-        .papel { position: absolute; bottom: 50px; width: 240px; height: 280px; background: #ffffff; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); border-radius: 0 0 80px 80px; z-index: 10; box-shadow: inset 0 -20px 30px rgba(0,0,0,0.05), 5px 10px 20px rgba(0,0,0,0.1); }
-        
-        /* El lazo amarillo de la imagen */
-        .lazo { position: absolute; bottom: 100px; width: 65px; height: 12px; background: #ffd700; border-radius: 10px; z-index: 15; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
-        .lazo::after { content: '🎗️'; position: absolute; right: -15px; top: -10px; font-size: 20px; transform: rotate(20deg); }
+        .rosa { font-size: 45px; margin: -15px; opacity: 0; transform: scale(0); animation: nacer 0.6s ease-out forwards; filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.2)); }
 
-        /* Contenedor de rosas para que se amontonen como un ramo */
-        .flores { position: absolute; top: 50px; width: 260px; height: 220px; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; }
+        @keyframes nacer { to { opacity: 1; transform: scale(1); } }
 
-        .rosa { font-size: 55px; margin: -12px; opacity: 0; transform: scale(0) rotate(-10deg); animation: brotar 0.7s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards; filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.3)); }
-
-        @keyframes brotar { to { opacity: 1; transform: scale(1) rotate(0deg); } }
-
-        /* Destellos brillantes ✨ */
-        .brillo { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: destello 1.5s infinite; z-index: 20; }
-        @keyframes destello { 0%, 100% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #fff; } }
+        /* Destellos */
+        .sparkle { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: flash 1.5s infinite; z-index: 20; }
+        @keyframes flash { 0%, 100% { transform: scale(0); } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #fff; } }
     </style>
 </head>
 <body>
     <h1>🌹 20 Rosas para Mich 🌹</h1>
 
-    <div class="ramo-container">
-        <div class="flores" id="bouquet"></div>
+    <div class="bouquet-frame">
+        <div class="area-flores" id="bouquet"></div>
         <div class="papel"></div>
         <div class="lazo"></div>
     </div>
 
     <script>
         const bouquet = document.getElementById('bouquet');
-        // Generamos las 20 rosas con un pequeño retraso entre cada una
         for (let i = 0; i < 20; i++) {
             setTimeout(() => {
                 const rosa = document.createElement('div');
                 rosa.className = 'rosa';
-                rosa.innerHTML = '🌹'; // Rosa roja
+                rosa.innerHTML = '🌹';
                 bouquet.appendChild(rosa);
-                if (i % 2 === 0) crearBrillo();
-            }, i * 150);
+                if (i % 2 === 0) createSparkle();
+            }, i * 100);
         }
 
-        function crearBrillo() {
-            const b = document.createElement('div');
-            b.className = 'brillo';
-            const size = Math.random() * 8 + 4;
-            b.style.width = size + 'px';
-            b.style.height = size + 'px';
-            b.style.top = Math.random() * 300 + 'px';
-            b.style.left = Math.random() * 300 + 'px';
-            b.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(b);
+        function createSparkle() {
+            const s = document.createElement('div');
+            s.className = 'sparkle';
+            const size = Math.random() * 6 + 2;
+            s.style.width = size + 'px';
+            s.style.height = size + 'px';
+            s.style.top = Math.random() * 200 + 'px';
+            s.style.left = Math.random() * 250 + 'px';
+            document.body.appendChild(s);
         }
     </script>
 </body>
